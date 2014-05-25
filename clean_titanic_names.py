@@ -58,6 +58,28 @@ def split_first_last(data):
 
 	return data
 
+def correct_french(data):
+	if data['title'] == 'Mlle':
+		data.title = 'Miss'
+
+	if data['title'] == 'Mme':
+		data.title = 'Mrs'
+
+	if data['title'] == 'Ms':
+		data.title = 'Miss'
+
+	return data
+
+
+def nobility(data):
+	if data['title'] in ('Jonkheer','Don','Sir','Capt','Col','Dr','Rev','Major'):
+		data.title = 'Male high-ranking'
+
+	if data['title'] in ('Lady','the Countess'):
+		data.title = 'Mrs'
+
+	return data
+
 
 def reorder_cols(data):
 	cols = ['PassengerId','title','Pclass','Sex','Age','SibSp','Parch','Ticket',\
@@ -81,6 +103,8 @@ def main():
 	data = import_data(path, file_name)
 	
 	data = split_first_last(data)
+	data = nobility(data)
+	data = correct_french(data)
 
 	data = reorder_cols(data)
 
