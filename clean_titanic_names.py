@@ -58,25 +58,30 @@ def split_first_last(data):
 
 	return data
 
-def correct_french(data):
-	if data['title'] == 'Mlle':
-		data.title = 'Miss'
+def correct_french(x):
+	if x == 'Mlle':
+		x = 'Miss'
 
-	if data['title'] == 'Mme':
-		data.title = 'Mrs'
+	if x == 'Mme':
+		x = 'Mrs'
 
-	if data['title'] == 'Ms':
-		data.title = 'Miss'
+	if x == 'Ms':
+		x = 'Miss'
 
-	return data
+	return x
 
+def correct_nobility(x):
+	if x in ('Jonkheer','Don','Sir','Capt','Col','Dr','Rev','Major'):
+		x = 'Male high-ranking'
 
-def nobility(data):
-	if data['title'] in ('Jonkheer','Don','Sir','Capt','Col','Dr','Rev','Major'):
-		data.title = 'Male high-ranking'
+	if x in ('Lady', 'the Countess'):
+		x = 'Mrs'
 
-	if data['title'] in ('Lady','the Countess'):
-		data.title = 'Mrs'
+	return x
+
+def change_title_outliers(data):
+	data['title'] = data['title'].apply(correct_nobility)
+	data['title'] = data['title'].apply(correct_french)
 
 	return data
 
@@ -103,8 +108,7 @@ def main():
 	data = import_data(path, file_name)
 	
 	data = split_first_last(data)
-	data = nobility(data)
-	data = correct_french(data)
+	data = change_title_outliers(data)
 
 	data = reorder_cols(data)
 
