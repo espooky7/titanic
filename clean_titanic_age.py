@@ -68,6 +68,13 @@ def estimate_men_not_alone(data):
 	return data
 
 
+def reorder_cols(data):
+	cols = ['PassengerId','title','age_bins','Pclass','Sex','Age','SibSp','Parch','Ticket',\
+	'Fare','Cabin','Embarked','Survived']
+	data = data[cols]
+
+	return data
+
 def write_file(path, filename, data):
 	file_path = os.path.join(path, filename)
 	data.to_csv(file_path, index = False)
@@ -88,6 +95,8 @@ def main():
 	data = estimate_children(data)
 	data = estimate_miss(data)
 	data = estimate_men_not_alone(data)
+
+	data = reorder_cols(data)
 
 	new_save_file = 'train_ages_binned.csv'
 	write_file(path, new_save_file, data)
