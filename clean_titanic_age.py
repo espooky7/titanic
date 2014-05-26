@@ -1,7 +1,7 @@
 
 def import_data(path, filename):
 	file_path = os.path.join(path, filename)
-	data = pd.read_csv(filepath)
+	data = pd.read_csv(file_path)
 
 	return data
 
@@ -69,14 +69,14 @@ def estimate_men_not_alone(data):
 
 
 def write_file(path, filename, data):
-	filepath = os.path.join(path, filename)
-	data.to_csv(filepath, index = False)
+	file_path = os.path.join(path, filename)
+	data.to_csv(file_path, index = False)
 
 	return
 
 
 def main():
-	path = 'Users/emily.dahlberg/Documents/kaggle/titanic/'
+	path = '/Users/emily.dahlberg/Documents/kaggle/titanic/'
 	filename = 'train_names_removed.csv'
 
 	data = import_data(path, filename)
@@ -90,11 +90,12 @@ def main():
 	data = estimate_men_not_alone(data)
 
 	new_save_file = 'train_ages_binned.csv'
-	write(path, new_save_file, data)
+	write_file(path, new_save_file, data)
 
 
 if __name__ == '__main__':
 	import pandas as pd
 	import numpy as np
+	import os
 
 	main()
