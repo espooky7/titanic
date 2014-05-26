@@ -8,7 +8,7 @@ def import_data(path, filename):
 
 def bin_ages(data):
 	bins = [0,10,16,25,40,60,np.inf]
-	data['age_bins'] = pd.cut(data.Age, bins)
+	data['age_bins'] = pd.cut(data.Age, bins, labels = False)
 
 	return data
 
