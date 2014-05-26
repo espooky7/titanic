@@ -7,13 +7,6 @@ def import_data(path, filename):
 	return data
 
 
-def greater_3(x):
-	if x >= 3:
-		x = 3
-
-	return x
-
-
 def greater_2(x):
 	if x >= 2:
 		x = 2
@@ -23,7 +16,7 @@ def greater_2(x):
 
 def clean_sibsp(data):
 	data['SibSp_bin'] = data.SibSp
-	data['SibSp_bin'] = data['SibSp_bin'].apply(greater_3)
+	data['SibSp_bin'] = data['SibSp_bin'].apply(greater_2)
 
 	return data
 
